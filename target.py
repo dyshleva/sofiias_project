@@ -41,16 +41,6 @@ def get_words(myfile: str, letters: list[str]) -> list[str]:
     return words_from_dict
 
 
-def get_user_words() -> List[str]:
-    """
-    Gets words from user input and returns a list with these words.
-    Usage: enter a word or press ctrl+d to finish for *nix or Ctrl-Z+Enter 
-    for Windows.
-    Note: the user presses the enter key after entering each word.
-    """
-    pass
-
-
 MYFILE = "en.txt"
 
 
@@ -69,5 +59,45 @@ def get_user_words() -> List[str]:
             return user_words
 
 
+def get_pure_user_words(user_words: List[str], letters: List[str],
+                        words_from_dict: List[str]) -> List[str]:
+    """
+    (list, list, list) -> list
+
+    Checks user words with the rules and returns list of those words
+    that are not in dictionary.
+    """
+    final = []
+    total = []
+    central = letters[4]
+    # letters2 = letters.copy()
+    for i in user_words:
+        letters2 = letters.copy()
+        if len(i) >= 4 and central in i:
+            counter = 0
+            for element in i:
+                if element not in letters2:
+                    counter += 1
+                    # print(element, " not in ", letters)
+                else:
+                    letters2.remove(letters2[letters2.index(element)])
+            if counter == 0 and len(i.lower()) >= 4:
+                final.append(i.lower())
+    for element in final:
+        if element not in words_from_dict:
+            total.append(element)
+    return total
+
+
 def results():
-    pass
+    '''
+    Return result and print it into file
+    '''
+    first = generate_grid()
+    got_from_user = get_user_words()
+
+    with open('result.txt', 'w') as myfile2:
+        myfile2.write(' '.join(get_pure_user_words(
+            got_from_user, first, get_words(MYFILE, first)))+'\n')
+    return get_pure_user_words(
+        got_from_user, first, get_words(MYFILE, first))
