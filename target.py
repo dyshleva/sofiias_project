@@ -51,14 +51,22 @@ def get_user_words() -> List[str]:
     pass
 
 
-def get_pure_user_words(user_words: List[str], letters: List[str], words_from_dict: List[str]) -> List[str]:
-    """
-    (list, list, list) -> list
+MYFILE = "en.txt"
 
-    Checks user words with the rules and returns list of those words
-    that are not in dictionary.
+
+def get_user_words() -> List[str]:
     """
-    pass
+    Gets words from user input and returns a list with these words.
+    Usage: enter a word or press ctrl+d to finish.
+    """
+    user_words = []
+    while True:
+        try:
+            vidpovid = str(input()).lower()
+            if len(vidpovid) >= 4:
+                user_words.append(vidpovid.lower())
+        except EOFError:
+            return user_words
 
 
 def results():
