@@ -19,11 +19,26 @@ def generate_grid() -> List[List[str]]:
     return bukvy
 
 
-def get_words(f: str, letters: List[str]) -> List[str]:
+def get_words(myfile: str, letters: list[str]) -> list[str]:
     """
     Reads the file f. Checks the words with rules and returns a list of words.
     """
-    pass
+    words_from_dict = []
+    central = letters[4]
+    with open(myfile, 'r') as spysok:
+        for i in spysok.readlines():
+            letters2 = letters.copy()
+            i = i.lower()
+            if len(i) >= 4 and central in i:
+                counter = 0
+                for element in i[:-1]:
+                    if element not in letters2:
+                        counter += 1
+                    else:
+                        letters2.remove(letters2[letters2.index(element)])
+                if counter == 0 and len(i.lower().replace('\n', "")) >= 4:
+                    words_from_dict.append(i.lower().replace('\n', ""))
+    return words_from_dict
 
 
 def get_user_words() -> List[str]:
