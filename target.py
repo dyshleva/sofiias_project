@@ -1,3 +1,7 @@
+'''
+Target game
+'''
+from random import randrange
 from typing import List
 
 
@@ -6,7 +10,13 @@ def generate_grid() -> List[List[str]]:
     Generates list of lists of letters - i.e. grid for the game.
     e.g. [['I', 'G', 'E'], ['P', 'I', 'S'], ['W', 'M', 'G']]
     """
-    pass
+    bukvy = []
+    for _ in range(3):
+        not_final = []
+        for _ in range(3):
+            not_final.append(chr(randrange(97, 123)).upper())
+        bukvy.append(not_final)
+    return bukvy
 
 
 def get_words(f: str, letters: List[str]) -> List[str]:
